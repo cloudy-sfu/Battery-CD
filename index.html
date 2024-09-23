@@ -35,37 +35,30 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">Batteries group</div>
-                <div class="card-body">
-                    <table>
-                        <thead>
-                        <tr id="battery-template" hidden="">
-                            <td>
+                <div class="card-body" style="overflow-x: auto;">
+                        <div id="battery-template" hidden="">
                                 <label>Energy capacity (MWh)
                             <input type="number" class="form-control form-text" name="capacity"
                                    min="0"
                             >
                         </label>
-                            </td>
-                        <td>
                             <label>Initial level (0~1)
                             <input type="number" class="form-control form-text" name="level"
                                    max="1" min="0" step="0.01" style="min-width: 20ch;"
                             >
                         </label>
-                        </td>
-                        <td><label>Charging duration (h)
+                        <label>Charging duration (h)
                             <input type="number" class="form-control form-text" name="c-duration" min="0">
-                        </label></td>
-                        <td><label>Discharging duration (h)
+                        </label>
+                        <label>Discharging duration (h)
                             <input type="number" class="form-control form-text" name="d-duration" min="0">
-                        </label></td>
-                        <td style="min-width: 25ch;"><label>Charging efficiency (0~1)
+                        </label>
+                        <label style="min-width: 25ch;">Charging efficiency (0~1)
                             <input type="number" class="form-control form-text" name="efficiency"
                                    max="1" min="0" step="0.01"
                             >
-                        </label></td>
-                            <td style="padding-top: 1rem;">
-                                <button class="btn" style="color: green; border: none;"
+                        </label>
+                                <button class="btn" style="color: green; border: none; padding-bottom: 1rem;"
                                 onclick="add_battery()"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
@@ -73,20 +66,15 @@
                                     <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
                                 </svg>
                             </button>
-                           </td>
-                            <td style="padding-top: 1rem; ">
-                                <button class="btn" style="color: darkred; border: none;"
+                                <button class="btn" style="color: darkred; border: none; padding-bottom: 1rem;"
                                     onclick="delete_battery(this)"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
                                     <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
                                 </svg>
                             </button>
-                            </td>
-                    </tr>
-                        </thead>
-                        <tbody id="batteries"></tbody>
-                    </table>
+                    </div>
+                        <div id="batteries"></div>
 
                     <div class="fst-italic">  <!-- help text -->
                         <span>If maximum input and output power is known:</span>
@@ -113,7 +101,9 @@
                     <div class="fst-italic">
                         <span>In table "hourly supply and demand electricity load", </span>
                         <ul>
-                            <li>Format: Accept *.csv file via uploading.</li>
+                            <li>Format: Accept *.csv file via uploading. All values
+                                except the first row should be numeric.
+                            </li>
                             <li>Columns: The first column represents the demand load.
                                 The second and subsequent columns represent other source
                                 of supply load. If there is no other supplies, the table
@@ -128,7 +118,8 @@
                                 earliest to latest.</li>
                         </ul>
                     </div>
-                    <table class="simple_table">
+                    <div style="overflow-x: auto;">
+                        <table class="simple_table">
                         <thead><tr>
                             <th>Demand</th>
                             <th>Supply 1</th>
@@ -142,6 +133,7 @@
                         </tbody>
                         <caption>Example table</caption>
                     </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -223,7 +215,7 @@
         batteries.appendChild(new_battery);
     }
     function delete_battery(self) {
-        self.parentNode.parentNode.remove();
+        self.parentNode.remove();
         if (batteries.children.length < 1) {
             add_battery();
         }
@@ -319,6 +311,7 @@
             error_box.innerText = "Please choose a supply and demand table.";
             return;
         }
+        console.log(demand);
         // get batteries' attributes
         const batteries = document.getElementById('batteries').children;
         const n_battery = batteries.length;
