@@ -315,12 +315,17 @@
     function start_job() {
         error_box.innerText = '';
         // get demand curve
-        if (!demand) {
+        if ((!demand) || (demand.length === 0)) {
             error_box.innerText = "Please choose a supply and demand table.";
+            return;
         }
         // get batteries' attributes
         const batteries = document.getElementById('batteries').children;
         const n_battery = batteries.length;
+        if (n_battery === 0) {
+            error_box.innerText = "The batteries group cannot be empty.";
+            return;
+        }
         energy_capacity = [];
         initial_level = [];
         input_power = [];
