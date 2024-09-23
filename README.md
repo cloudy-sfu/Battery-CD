@@ -32,7 +32,7 @@ Let $S_{ij}^{c}, \forall i = 1, ..., m, \forall j =  1, ..., n$ be a binary vari
 
 Let $S_{ij}^{d}, \forall i = 1, ..., m, \forall j =  1, ..., n$ be a binary variable to state whether battery $i$ is discharging at time slot $j$.
 
-Let $A_{ij}, \forall i = 1, ..., m, \forall j =  1, ..., n$ be the amount of electricity remained in each battery $i$ at the beginning of each time slot $j$.
+Let $A_{ij}, \forall i = 1, ..., m, \forall j =  1, ..., n+1$ be the amount of electricity remained in each battery $i$ at the beginning of each time slot $j$.
 
 ### The objective function
 
